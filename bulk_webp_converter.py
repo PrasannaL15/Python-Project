@@ -2,8 +2,22 @@ import os
 import sys
 from PIL import Image
 
+# Usage: python bulk_webp_converter.py <folder_path> <output_format> <rename> <generate_sizes>
+
 
 def convert_images(folder_path, output_format, rename=None, generate_sizes=None):
+    '''
+    Converts all images in a folder to the specified format
+    folder_path: Path to the folder containing the images
+    output_format: The format to which the images should be converted
+    rename: If specified, the converted images will be renamed to the specified name
+    generate_sizes: If specified, the converted images will be resized to the specified percentages
+
+    Example:
+    python bulk_webp_converter.py C:/Users/username/Desktop/images -webp -rename=converted -generatesizes [45,60,75,90]
+
+    '''
+
     count = 1
     print(rename)
     output_folder = os.path.join(folder_path, 'Output').replace("\\", "/")
@@ -23,9 +37,10 @@ def convert_images(folder_path, output_format, rename=None, generate_sizes=None)
 
             if output_format in format_map:
                 if not filename.endswith('.' + format_map[output_format]):
-                    output_path = os.path.splitext(
-                        img_path)[0] + '.' + format_map[output_format]
-
+                    output_path = os.path.join(
+                        output_folder, filename.split('.')[0]) + '.' + format_map[output_format]
+                    output_path = output_path.replace("\\", "/")
+                    print(output_path)
                     if rename:
                         output_path = os.path.join(
                             output_folder, f'{rename}_{count}.').replace("\\", "/") + format_map[output_format]
@@ -44,8 +59,22 @@ def convert_images(folder_path, output_format, rename=None, generate_sizes=None)
                 return
             count += 1
 
+# Generates resized images of the specified percentages
+
 
 def generate_resized_images(img_path, output_format, generate_sizes):
+    '''
+    Generates resized images of the specified percentages
+    img_path: Path to the image
+    output_format: The format to which the images should be converted
+    generate_sizes: The percentages to which the images should be resized
+
+    Example:
+    python bulk_webp_converter.py C:/Users/username/Desktop/images -webp -rename=converted -generatesizes [45,60,75,90]
+
+
+
+    '''
     img = Image.open(img_path)
     for size in generate_sizes:
         width, height = img.size
