@@ -1,7 +1,7 @@
 import os
 import sys
 from PIL import Image
-
+import argparse
 # Usage: python bulk_webp_converter.py <folder_path> <output_format> <rename> <generate_sizes>
 
 
@@ -95,17 +95,33 @@ if __name__ == '__main__':
     output_format = None
     rename = None
     generate_sizes = None
+
     for i, arg in enumerate(sys.argv[2:]):
-        if arg == '-webp':
+        if arg == '--webp':
+            if output_format:
+                print(
+                    f'Output format already specified, should not pass multiple output formats -{output_format}, {arg}')
+                exit(1)
+
             output_format = 'webp'
-        elif arg == '-jpg':
+        elif arg == '--jpg':
+            if output_format:
+                print(
+                    f'Output format already specified, should not pass multiple output formats -{output_format}, {arg}')
+                exit(1)
+
             output_format = 'jpg'
-        elif arg == '-png':
+        elif arg == '--png':
+            if output_format:
+                print(
+                    f'Output format already specified, should not pass multiple output formats -{output_format}, {arg}')
+                exit(1)
+
             output_format = 'png'
-        elif arg.startswith('-rename='):
+        elif arg.startswith('--rename='):
             rename = arg.split('=')[1]
 
-        elif arg == '-generatesizes':
+        elif arg == '--generatesizes':
             generate_sizes = [45, 60, 75, 90]
         elif arg.startswith('-generatesizes='):
             sizes = sys.argv[i+3]
