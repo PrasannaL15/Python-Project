@@ -2,6 +2,7 @@ import os
 import sys
 from PIL import Image
 import argparse
+import argparse
 # Usage: python bulk_webp_converter.py <folder_path> <output_format> <rename> <generate_sizes>
 
 
@@ -17,9 +18,9 @@ def convert_images(folder_path, output_format, rename=None, generate_sizes=None)
     python bulk_webp_converter.py C:/Users/username/Desktop/images -webp -rename=converted -generatesizes [45,60,75,90]
 
     '''
-
+    print(folder_path, output_format, rename, generate_sizes)
     count = 1
-    print(rename)
+
     output_folder = os.path.join(folder_path, 'Output').replace("\\", "/")
     while os.path.exists(output_folder):
         count += 1
@@ -31,6 +32,7 @@ def convert_images(folder_path, output_format, rename=None, generate_sizes=None)
 
     count = 1
     for filename in sorted(os.listdir(folder_path)):
+        print(filename)
         if filename.endswith('.jpg') or filename.endswith('.jpeg') or filename.endswith('.png') or filename.endswith('.webp'):
             img_path = os.path.join(folder_path, filename).replace("\\", "/")
             img = Image.open(img_path)
@@ -90,48 +92,35 @@ def generate_resized_images(img_path, output_format, generate_sizes):
         resized_img.save(resized_path, output_format)
 
 
+def comma_seperated(string):
+    if string:
+        for size in string.split(','):
+            if not size.isdigit():
+                raise argparse.ArgumentTypeError(
+                    "Comma seperated list of integers expected")
+    else:
+        raise argparse.ArgumentTypeError(
+            "Comma seperated list of integers expected")
+
+    return [int(size) for size in string.split(',')]
+
+
 if __name__ == '__main__':
-    folder_path = sys.argv[1]
-    output_format = None
-    rename = None
-    generate_sizes = None
+    parser = argparse.ArgumentParser(
+        description='Converts all images in a folder to the specified format')
+    parser.add_argument('folder_path', type=str,
+                        help='Path to the folder containing the images')
+    parser.add_argument('-f', '--format', type=str, choices=[
+                        'webp', 'jpg', 'png'], help='The format to which the images should be converted')
+    parser.add_argument('-r', '--rename', type=str, nargs='?',
+                        help='If specified, the converted images will be renamed to the specified name')
+    parser.add_argument('-s', '--sizes', type=comma_seperated, nargs=1,
+                        help='If specified, the converted images will be resized to the specified percentages')
 
-    for i, arg in enumerate(sys.argv[2:]):
-        if arg == '--webp':
-            if output_format:
-                print(
-                    f'Output format already specified, should not pass multiple output formats -{output_format}, {arg}')
-                exit(1)
-
-            output_format = 'webp'
-        elif arg == '--jpg':
-            if output_format:
-                print(
-                    f'Output format already specified, should not pass multiple output formats -{output_format}, {arg}')
-                exit(1)
-
-            output_format = 'jpg'
-        elif arg == '--png':
-            if output_format:
-                print(
-                    f'Output format already specified, should not pass multiple output formats -{output_format}, {arg}')
-                exit(1)
-
-            output_format = 'png'
-        elif arg.startswith('--rename='):
-            rename = arg.split('=')[1]
-
-        elif arg == '--generatesizes':
-            generate_sizes = [45, 60, 75, 90]
-        elif arg.startswith('-generatesizes='):
-            sizes = sys.argv[i+3]
-            if (not sizes.startswith('[') and not sizes.endswith(']')):
-                print('Invalid size list')
-                break
-            sizes = sizes.replace('[', '').replace(']', '')
-
-            generate_sizes = [int(size) for size in sizes.split(',')]
-    if not output_format:
+    args = parser.parse_args()
+    print(args)
+    if not args.format:
         print('Output format not specified')
     else:
-        convert_images(folder_path, output_format, rename, generate_sizes)
+        convert_images(args.folder_path, args.format,
+                       args.rename, args.sizes)
