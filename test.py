@@ -21,7 +21,8 @@ def test_bulk_webp_converter():
     def test_webp_images(images, output):
 
         for image in images:
-            path = os.path.join(output, image)
+            path = os.path.join(output, image).replace('\\', '/')
+            print(path)
             assert os.path.exists(path)
             assert path.endswith('.webp')
         return True
@@ -33,7 +34,7 @@ def test_bulk_webp_converter():
         ['python', 'bulk_webp_converter.py', '-f', 'webp', 'Images/'], capture_output=True, text=True)
     expected_Images = ['ID.webp', 'LinkedinLogo.webp']
 
-    output_path = os.path.join('Images', 'Output')
+    output_path = os.path.join('Images', 'Output').replace('\\', '/')
     assert result.returncode == 0
     assert test_webp_images(expected_Images, output_path) == True
 
