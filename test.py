@@ -40,6 +40,7 @@ def test_wc():
             my_diff(expected_output, result.stdout)  
         print(result.stdout)
         print(expected_output)
+        assert result.stdout == expected_output
 
 def test_gron():
     result = subprocess.run(['python', 'prog/gron.py', 'eg.json'],
