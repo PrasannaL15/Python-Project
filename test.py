@@ -23,7 +23,7 @@ def test_bulk_webp_converter():
         for image in images:
             path = os.path.join(output, image).replace('\\', '/')
             print(path)
-            assert os.path.exists(path)
+            assert os.path.exists(path) == True
             assert path.endswith('.webp')
         return True
 
