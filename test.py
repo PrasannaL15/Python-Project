@@ -34,7 +34,7 @@ def test_bulk_webp_converter():
 
     result = subprocess.run(
         ['python', 'bulk_webp_converter.py', '-f', 'webp', 'Images/'], capture_output=True, text=True)
-    expected_Images = ['ID.webp', 'LinkedinLogo.webp']
+    expected_Images = ['ID.webp', 'linkedinLogo.webp']
 
     output_path = os.path.join('Images', 'Output').replace('\\', '/')
     assert result.returncode == 0
