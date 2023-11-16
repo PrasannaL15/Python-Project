@@ -7,7 +7,7 @@ from pprint import pprint
 def my_diff(expected, actual):
     d = Differ()
     comparison = list(d.compare(expected.split(), actual.split()))
-    pprint(comparison)
+    print(''.join(comparison))
 
 def run_cat(command):
     cat = subprocess.Popen(command.split(' '), stdout=subprocess.PIPE)
