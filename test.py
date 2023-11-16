@@ -7,9 +7,7 @@ def test_wc():
     print(result)
 
     assert result.returncode == 0
-    assert 'Words: ' in result.stdout
-    assert 'Lines: ' in result.stdout
-    assert 'Characters: ' in result.stdout
+    assert result.stdout == '       3       8      31 requirements.txt\n'
 
 
 def test_gron():
