@@ -66,10 +66,10 @@ def wc(filenameList=None, line_flag=False, word_flag=False, char_flag=False):
         contents = "".join([x for x in sys.stdin])
 
         lines = contents.split('\n') 
-        print(lines)
+        # print(lines)
         words = re.findall(r'\b\w+(?:[-\']\w+)?\b', contents)
         chars = len(contents)
-        
+
         printWc(len(lines)-1, len(words), chars, None)
 
 
