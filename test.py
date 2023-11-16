@@ -2,7 +2,6 @@ import subprocess
 import os
 import shutil
 from difflib import Differ
-from pprint import pprint
 
 def my_diff(expected, actual):
     d = Differ()
