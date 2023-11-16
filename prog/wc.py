@@ -2,7 +2,7 @@
 import argparse
 import sys
 import re
-
+import os
 
 def wc(filenameList=None, line_flag=False, word_flag=False, char_flag=False):
     def printWc(line_count, word_count, char_count, filename):

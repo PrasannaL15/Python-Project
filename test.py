@@ -1,17 +1,31 @@
 import subprocess
 import os
 import shutil
+from difflib import Differ
+from pprint import pprint
 
+def run_command(command):
+    result = subprocess.run(command.split(' '), capture_output=True, text=True)
+    return result
 
 def test_wc():
-    result = subprocess.run(['python', 'wc.py', 'requirements.txt'],
-                            capture_output=True, text=True)
+    result = run_command('python prog/wc.py test/wc.test1.in')
+    d = Differ()
+
     assert result.returncode == 0
-    assert result.stdout == '       3       8      31 requirements.txt\n'
+    with open('test/wc.test1.out', 'r') as f:
+        expected_output = f.read()
+
+        comparison = list(d.compare(expected_output.split(), result.stdout.split()))
+        if result.stdout != expected_output:
+            pprint(comparison)  
+
+        assert result.stdout == expected_output     
+
 
 
 def test_gron():
-    result = subprocess.run(['python', 'gron.py', 'eg.json'],
+    result = subprocess.run(['python', 'prog/gron.py', 'eg.json'],
                             capture_output=True, text=True)
     assert result.returncode == 0
     assert 'json' in result.stdout
@@ -22,9 +36,7 @@ def test_bulk_webp_converter():
 
         for image in images:
             path = os.path.join(output, image).replace('\\', '/')
-            print(path)
-            print(os.path.abspath(path))
-            print(os.path.exists(path), "check if path exists")
+            
             assert os.path.exists(path) == True
             assert path.endswith('.webp')
         return True
@@ -33,7 +45,7 @@ def test_bulk_webp_converter():
         shutil.rmtree('Images/Output')
 
     result = subprocess.run(
-        ['python', 'bulk_webp_converter.py', '-f', 'webp', 'Images/'], capture_output=True, text=True)
+        ['python', 'prog/bulk_webp_converter.py', '-f', 'webp', 'Images/'], capture_output=True, text=True)
     expected_Images = ['ID.webp', 'linkedinLogo.webp']
 
     output_path = os.path.join('Images', 'Output').replace('\\', '/')
@@ -42,7 +54,7 @@ def test_bulk_webp_converter():
 
 
 if __name__ == '__main__':
-    print(os.path.exists('Images'))
+    
     test_wc()
     test_gron()
     test_bulk_webp_converter()
