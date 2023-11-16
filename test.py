@@ -2,9 +2,9 @@ import subprocess
 
 
 def test_wc():
-    result = subprocess.run(['python', 'wc.py', 'test.txt'],
+    result = subprocess.run(['python', 'wc.py', 'requirements.txt'],
                             capture_output=True, text=True)
-    print(result.stdout)
+    print(result)
 
     assert result.returncode == 0
     assert 'Words: ' in result.stdout
