@@ -4,25 +4,42 @@ import shutil
 from difflib import Differ
 from pprint import pprint
 
-def run_command(command):
-    result = subprocess.run(command.split(' '), capture_output=True, text=True)
+def my_diff(expected, actual):
+    d = Differ()
+    comparison = list(d.compare(expected.split(), actual.split()))
+    pprint(comparison)
+
+def run_echo(command):
+    echo = subprocess.Popen(command.split(' '), stdout=subprocess.PIPE)
+    return echo
+
+def run_command(command,stdin=None):
+    result = subprocess.run(command.split(' '), capture_output=True, text=True, stdin=stdin)
     return result
 
 def test_wc():
     result = run_command('python prog/wc.py test/wc.test1.in')
+    
+    
     d = Differ()
+
 
     assert result.returncode == 0
     with open('test/wc.test1.out', 'r') as f:
         expected_output = f.read()
-
-        comparison = list(d.compare(expected_output.split(), result.stdout.split()))
         if result.stdout != expected_output:
-            pprint(comparison)  
+            my_diff(expected_output, result.stdout)  
 
         assert result.stdout == expected_output     
+    echo_output = run_echo('echo test/wc.test1.in')
+    result = run_command('python prog/wc.py',stdin=echo_output.stdout)
+    
+    with open('test/wc.test1.stdin.out','r') as f:
+        expected_output = f.read()
+        if result.stdout != expected_output:
+            my_diff(expected_output, result.stdout)  
 
-
+        assert result.stdout == expected_output
 
 def test_gron():
     result = subprocess.run(['python', 'prog/gron.py', 'eg.json'],
