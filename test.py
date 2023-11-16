@@ -4,6 +4,8 @@ import subprocess
 def test_wc():
     result = subprocess.run(['python', 'wc.py', 'test.txt'],
                             capture_output=True, text=True)
+    print(result.stdout)
+
     assert result.returncode == 0
     assert 'Words: ' in result.stdout
     assert 'Lines: ' in result.stdout
