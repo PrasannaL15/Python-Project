@@ -24,6 +24,7 @@ def test_bulk_webp_converter():
             path = os.path.join(output, image).replace('\\', '/')
             print(path)
             print(os.path.abspath(path))
+            print(os.path.exists(path), "check if path exists")
             assert os.path.exists(path) == True
             assert path.endswith('.webp')
         return True
