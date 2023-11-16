@@ -9,9 +9,9 @@ def my_diff(expected, actual):
     comparison = list(d.compare(expected.split(), actual.split()))
     pprint(comparison)
 
-def run_echo(command):
-    echo = subprocess.Popen(command.split(' '), stdout=subprocess.PIPE)
-    return echo
+def run_cat(command):
+    cat = subprocess.Popen(command.split(' '), stdout=subprocess.PIPE)
+    return cat
 
 def run_command(command,stdin=None):
     result = subprocess.run(command.split(' '), capture_output=True, text=True, stdin=stdin)
@@ -31,8 +31,8 @@ def test_wc():
             my_diff(expected_output, result.stdout)  
 
         assert result.stdout == expected_output     
-    echo_output = run_echo('echo test/wc.test1.in')
-    result = run_command('python prog/wc.py',stdin=echo_output.stdout)
+    cat_output = run_cat('cat test/wc.test1.in')
+    result = run_command('python prog/wc.py',stdin=cat_output.stdout)
     
     with open('test/wc.test1.stdin.out','r') as f:
         expected_output = f.read()
