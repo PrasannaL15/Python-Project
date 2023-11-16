@@ -40,23 +40,24 @@ def wc(filenameList=None, line_flag=False, word_flag=False, char_flag=False):
         if filename:
             print(f" {filename}")
 
-    total_lines, total_words, total_chars, total_sentences = 0, 0, 0, 0
+    total_lines, total_words, total_chars= 0, 0, 0
     if filenameList:
         for filename in filenameList:
 
             with open(filename, 'r') as file:
                 contents = file.read()
                 lines = contents.split('\n')
-                words = re.findall(r'\b\w+\b', contents)
+                
+                words = re.findall(r'\b\w+(?:[-\']\w+)?\b', contents)
                 chars = len(contents)
-                sentences = re.findall(r'[^\s][^.?!]*[.?!]', contents)
-                paragraphs = re.split('\n{2,}', contents)
-                printWc(len(lines), len(words), chars, filename)
+                # sentences = re.findall(r'[^\s][^.?!]*[.?!]', contents)
+                # paragraphs = re.split('\n{2,}', contents)
+                printWc(len(lines)-1, len(words), chars, filename)
 
                 total_lines += len(lines)
                 total_words += len(words)
                 total_chars += chars
-                total_sentences += len(sentences)
+
 
         if len(filenameList) > 1:
             printWc(total_lines, total_words, total_chars, 'total')
@@ -64,12 +65,12 @@ def wc(filenameList=None, line_flag=False, word_flag=False, char_flag=False):
     else:
         contents = "".join([x for x in sys.stdin])
 
-        lines = contents.split('\n')
-        words = re.findall(r'\b\w+\b', contents)
+        lines = contents.split('\n') 
+        print(lines)
+        words = re.findall(r'\b\w+(?:[-\']\w+)?\b', contents)
         chars = len(contents)
-        sentences = re.findall(r'[^\s][^.?!]*[.?!]', contents)
-
-        printWc(len(lines), len(words), chars, None)
+        
+        printWc(len(lines)-1, len(words), chars, None)
 
 
 if __name__ == '__main__':
