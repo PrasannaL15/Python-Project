@@ -28,7 +28,7 @@ def test_bulk_webp_converter():
 
     if os.path.exists('Images/Output'):
         shutil.rmtree('Images/Output')
-    input()
+
     result = subprocess.run(
         ['python', 'bulk_webp_converter.py', '-f', 'webp', 'Images/'], capture_output=True, text=True)
     expected_Images = ['ID.webp', 'LinkedinLogo.webp']
