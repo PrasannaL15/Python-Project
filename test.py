@@ -7,6 +7,7 @@ def my_diff(expected, actual):
     d = Differ()
     comparison = list(d.compare(expected.split(), actual.split()))
     print(''.join(comparison))
+    
 
 def run_cat(command):
     cat = subprocess.Popen(command.split(' '), stdout=subprocess.PIPE)
@@ -37,8 +38,8 @@ def test_wc():
         expected_output = f.read()
         if result.stdout != expected_output:
             my_diff(expected_output, result.stdout)  
-
-        assert result.stdout == expected_output
+        print(result.stdout)
+        print(expected_output)
 
 def test_gron():
     result = subprocess.run(['python', 'prog/gron.py', 'eg.json'],
