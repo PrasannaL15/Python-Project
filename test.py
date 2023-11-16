@@ -17,29 +17,25 @@ def run_command(command,stdin=None):
     result = subprocess.run(command.split(' '), capture_output=True, text=True, stdin=stdin)
     return result
 
-def test_wc():
-    result = run_command('python prog/wc.py test/wc.test1.in')
-    
-    
+
+
+def test_wc(inputFile,outputFile,stdInOutputFile):
+    result = run_command('python prog/wc.py '+inputFile)
     d = Differ()
-
-
     assert result.returncode == 0
-    with open('test/wc.test1.out', 'r') as f:
+    with open(outputFile, 'r') as f:
         expected_output = f.read()
         if result.stdout != expected_output:
-            my_diff(expected_output, result.stdout)  
-
+            my_diff(expected_output, result.stdout)
         assert result.stdout == expected_output     
-    cat_output = run_cat('cat test/wc.test1.in')
+    cat_output = run_cat('cat '+inputFile)
     result = run_command('python prog/wc.py',stdin=cat_output.stdout)
     
-    with open('test/wc.test1.stdin.out','r') as f:
+    with open(stdInOutputFile,'r') as f:
         expected_output = f.read()
         if result.stdout != expected_output:
             my_diff(expected_output, result.stdout)  
-        print(result.stdout)
-        print(expected_output)
+            
         assert result.stdout == expected_output
 
 def test_gron():
@@ -73,6 +69,6 @@ def test_bulk_webp_converter():
 
 if __name__ == '__main__':
     
-    test_wc()
+    test_wc('test/wc.test1.in','test/wc.test1.out','test/wc.test1.stdin.out')
     test_gron()
     test_bulk_webp_converter()
