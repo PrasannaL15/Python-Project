@@ -40,6 +40,7 @@ def test_bulk_webp_converter():
 
 
 if __name__ == '__main__':
+    print(os.path.exists('Images'))
     test_wc()
     test_gron()
     test_bulk_webp_converter()
