@@ -34,18 +34,18 @@ def wc(file=None, line_flag=False, word_flag=False, char_flag=False):
         if char_flag:
             print(f"{char_count:8}", end='')
 
-        if filename != '<stdin>':
+        if filename:
             print(f" {filename}")
-        print()
+
 
     lines, words, chars = 0, 0, 0
     for line in file:
-        # print(line)
+        print(line)
         lines += 1      
         words += len(line.split('\n'))
         chars += len(line)
        
-    printWc(lines, words, chars, file.name)
+        printWc(lines, words, chars, file.name)
    
 
 if __name__ == '__main__':

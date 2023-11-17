@@ -110,7 +110,7 @@ if __name__ == '__main__':
         elif filename.startswith('bic_test'):
             try:
                 test_bulk_webp_converter('test/'+filename)
-                input('Press enter to continue')
+                # input('Press enter to continue')
                 passed['bulk_webp_converter'] += 1
             except Exception as e:
                 failed['bulk_webp_converter'] += 1
