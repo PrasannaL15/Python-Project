@@ -29,6 +29,7 @@ def test_wc(inputFile,outputFile,stdInOutputFile):
             my_diff(expected_output, result.stdout)
         assert result.stdout == expected_output     
     cat_output = run_cat('cat '+inputFile)
+    print(cat_output.stdout,"Cat output is")
     result = run_command('python3 prog/wc.py',stdin=cat_output.stdout)
     
     with open(stdInOutputFile,'r') as f:
