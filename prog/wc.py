@@ -4,6 +4,10 @@ import sys
 import re
 import os
 
+
+
+
+
 def wc(filenameList=None, line_flag=False, word_flag=False, char_flag=False):
     def printWc(line_count, word_count, char_count, filename):
         '''
@@ -43,19 +47,28 @@ def wc(filenameList=None, line_flag=False, word_flag=False, char_flag=False):
     total_lines, total_words, total_chars= 0, 0, 0
     if filenameList:
         for filename in filenameList:
-
+            lines, words, chars = 0, 0, 0
             with open(filename, 'r') as file:
-                contents = file.read()
-                lines = contents.split('\n')
+                for line in file:
+                    lines += 1      
+                    words += len(line.split())
+                    chars += len(line)
                 
-                words = re.findall(r'\b\w+(?:[-\']\w+)?\b', contents)
-                chars = len(contents)
-                # sentences = re.findall(r'[^\s][^.?!]*[.?!]', contents)
-                # paragraphs = re.split('\n{2,}', contents)
-                printWc(len(lines)-1, len(words), chars, filename)
+                # contents = file.read()
+                # lines = contents.split('\n')
+                
+                # words = re.findall(r'\b\w+(?:[-\']\w+)?\b', contents)
+                # chars = len(contents)
+                # # sentences = re.findall(r'[^\s][^.?!]*[.?!]', contents)
+                # # paragraphs = re.split('\n{2,}', contents)
+                # printWc(len(lines)-1, len(words), chars, filename)
+                printWc(lines, words, chars, filename)
 
-                total_lines += len(lines)
-                total_words += len(words)
+                # total_lines += len(lines)
+                # total_words += len(words)
+
+                total_lines += lines
+                total_words += words
                 total_chars += chars
 
 
@@ -63,15 +76,19 @@ def wc(filenameList=None, line_flag=False, word_flag=False, char_flag=False):
             printWc(total_lines, total_words, total_chars, 'total')
 
     else:
-        contents = "".join([x for x in sys.stdin])
+        lines, words, chars = 0, 0, 0
+        # contents = "".join([x for x in sys.stdin])
+        for line in sys.stdin:
+            lines += 1      
+            words += len(line.split())
+            chars += len(line)
 
-        lines = contents.split('\n') 
         # print(lines)
-        words = re.findall(r'\b\w+(?:[-\']\w+)?\b', contents)
-        chars = len(contents)
+        # words = re.findall(r'\b\w+(?:[-\']\w+)?\b', contents)
+        # chars = len(contents)
 
-        printWc(len(lines)-1, len(words), chars, None)
-
+        # printWc(len(lines)-1, len(words), chars, None)
+        printWc(lines, words, chars, None)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Word count utility')

@@ -22,6 +22,7 @@ def convert_images(folder_path, output_format, rename=None, generate_sizes=None)
     count = 1
 
     output_folder = os.path.join(folder_path, 'Output').replace("\\", "/")
+    print(output_folder)
     while os.path.exists(output_folder):
         count += 1
         output_folder = os.path.join(
@@ -36,30 +37,28 @@ def convert_images(folder_path, output_format, rename=None, generate_sizes=None)
         if filename.endswith('.jpg') or filename.endswith('.jpeg') or filename.endswith('.png') or filename.endswith('.webp'):
             img_path = os.path.join(folder_path, filename).replace("\\", "/")
             img = Image.open(img_path)
+            
+            output_path = os.path.join(
+                output_folder, filename.split('.')[0]) + '.' + format_map[output_format]
+            output_path = output_path.replace("\\", "/")
+            print("OUTPUT", output_path)
+            if rename:
+                output_path = os.path.join(
+                    output_folder, f'{rename}_{count}.').replace("\\", "/") + format_map[output_format]
 
-            if output_format in format_map:
-                if not filename.endswith('.' + format_map[output_format]):
-                    output_path = os.path.join(
-                        output_folder, filename.split('.')[0]) + '.' + format_map[output_format]
-                    output_path = output_path.replace("\\", "/")
-                    print(output_path)
-                    if rename:
-                        output_path = os.path.join(
-                            output_folder, f'{rename}_{count}.').replace("\\", "/") + format_map[output_format]
-
-                    if os.path.exists(output_path):
-                        print(f'{output_path} already exists')
-                    else:
-                        img.save(output_path, format_map[output_format])
-                    print(f'{img_path} converted to {output_path}')
-
-                    if generate_sizes:
-                        generate_resized_images(
-                            output_path, output_format, generate_sizes)
+            if os.path.exists(output_path):
+                print(f'{output_path} already exists')
             else:
-                print(f'Invalid output format: {output_format}')
-                return
-            count += 1
+                img.save(output_path, format_map[output_format])
+            print(f'{img_path} converted to {output_path}')
+
+            if generate_sizes:
+                generate_resized_images(
+                    output_path, output_format, generate_sizes)
+        # else:
+        #     print(f'Invalid output format: {output_format}')
+        #     return
+        count += 1
 
 # Generates resized images of the specified percentages
 
