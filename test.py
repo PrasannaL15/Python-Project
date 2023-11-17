@@ -34,6 +34,8 @@ def test_wc(inputFile,outputFile,stdInOutputFile):
     with open(stdInOutputFile,'r') as f:
         expected_output = f.read()
         if result.stdout != expected_output:
+            print("resceived Result",result.stdout)
+            print("expected Result",expected_output)
             my_diff(expected_output, result.stdout)  
             
         assert result.stdout == expected_output
