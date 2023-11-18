@@ -6,7 +6,7 @@ from difflib import Differ
 
 def my_diff(expected, actual):
     d = Differ()
-    comparison = list(d.compare(expected.split(), actual.split()))
+    comparison = d.ndiff(expected.split(), actual.split())
     print(comparison)
     print(''.join(comparison))
 
