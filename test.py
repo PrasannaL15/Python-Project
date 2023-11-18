@@ -88,13 +88,14 @@ def test_bulk_webp_converter(inputFile):
 if __name__ == '__main__':
     passed = {'wc': 0, 'gron': 0, 'bulk_webp_converter': 0}
     failed = {'wc': 0, 'gron': 0, 'bulk_webp_converter': 0}
-
+    total = 0 
     for filename in os.listdir('test'):
         print("Testing", filename)
         if filename.startswith('wc.') and filename.endswith('.in'):
             try:
                 test_wc('test/'+filename,'test/'+filename.replace('.in','.out'),'test/'+filename.replace('.in','.stdin.out'))
-                passed['wc'] += 1
+                passed['wc'] += 2
+                total += 2
             except Exception as e:
                 failed['wc'] += 1
                 print('failed with error as ',e)
@@ -102,7 +103,8 @@ if __name__ == '__main__':
         elif filename.startswith('gron.') and filename.endswith('.in'):
             try:
                 test_gron('test/'+filename,'test/'+filename.replace('.in','.out'),'test/'+filename.replace('.in','.stdin.out'))
-                passed['gron'] += 1
+                passed['gron'] += 2
+                total += 2
             except Exception as e:
                 failed['gron'] += 1
                 print('failed with error as ',e)
@@ -112,6 +114,7 @@ if __name__ == '__main__':
                 test_bulk_webp_converter('test/'+filename)
                 # input('Press enter to continue')
                 passed['bulk_webp_converter'] += 1
+                total += 1
             except Exception as e:
                 failed['bulk_webp_converter'] += 1
                 print('failed with error as ',e)
