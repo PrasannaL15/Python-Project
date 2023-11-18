@@ -33,7 +33,7 @@ def test_wc(inputFile, outputFile, stdInOutputFile):
             my_diff(expected_output, result.stdout)
         assert result.stdout == expected_output
     cat_output = run_cat('cat '+inputFile)
-    print(cat_output.stdout, "Cat output is")
+    # print(cat_output.stdout, "Cat output is")
     result = run_command('python3 prog/wc.py', stdin=cat_output.stdout)
 
     with open(stdInOutputFile, 'r') as f:
@@ -84,7 +84,7 @@ def test_bulk_webp_converter(inputFile):
         ['python3', 'prog/bic.py', '-f', 'webp', inputFile], capture_output=True, text=True)
     expected_Images = [filename for filename in os.listdir(
         inputFile+'/expected_output')]
-    print(expected_Images)
+    # print(expected_Images)
     output_path = os.path.join(inputFile, 'Output').replace('\\', '/')
 
     assert result.returncode == 0
