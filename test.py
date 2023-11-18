@@ -1,12 +1,12 @@
 import subprocess
 import os
 import shutil
-from difflib import Differ
+import difflib
 
 
 def my_diff(expected, actual):
-    d = Differ()
-    comparison = d.ndiff(expected.split(), actual.split())
+
+    comparison = difflib.ndiff(expected.split(), actual.split())
     print(comparison)
     print(''.join(comparison))
 
