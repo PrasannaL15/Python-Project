@@ -42,7 +42,8 @@ def wc(file=None, line_flag=False, word_flag=False, char_flag=False):
     for line in file:
         # print(line)
         lines += 1      
-        words += len(line.split('\n'))
+        # words += len(line.split('\n'))
+        words += len(re.findall(r'\b\w+(?:[-\']\w+)?\b', line))
         chars += len(line)
        
     printWc(lines, words, chars, file.name)
