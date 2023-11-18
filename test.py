@@ -24,8 +24,6 @@ def run_command(command, stdin=None):
 
 def test_wc(inputFile, outputFile, stdInOutputFile):
     result = run_command('python3 prog/wc.py '+inputFile)
-    print(result) if inputFile == 'test/wc.test3.in' else None
-    d = Differ()
     assert result.returncode == 0
     with open(outputFile, 'r') as f:
         expected_output = f.read()
