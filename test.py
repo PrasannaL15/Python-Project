@@ -129,7 +129,8 @@ if __name__ == '__main__':
 
     # test_wc('test/wc.test1.in','test/wc.test1.out','test/wc.test1.stdin.out')
 
-    # Print nicely formatted total passed and failed
+    # Print nicely formatted total passed and
+    print("Total Tests Performed:", total)
     print("Total Passed:")
     print("wc:", passed['wc'])
     print("gron:", passed['gron'])
