@@ -113,7 +113,7 @@ if __name__ == '__main__':
                           '.out'), 'test/'+filename.replace('.in', '.stdin.out'))
                 passed['gron'] += 2
                 total += 2
-            except Exception as e:
+            except AssertionError or Exception as e:
                 failed['gron'] += 1
                 print('failed with error as ', e)
 
@@ -123,7 +123,7 @@ if __name__ == '__main__':
                 # input('Press enter to continue')
                 passed['bulk_webp_converter'] += 1
                 total += 1
-            except Exception as e:
+            except AssertionError or Exception as e:
                 failed['bulk_webp_converter'] += 1
                 print('failed with error as ', e)
 
