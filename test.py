@@ -1,14 +1,14 @@
 import subprocess
 import os
 import shutil
-import difflib
+from difflib import Differ
 
 
 def my_diff(expected, actual):
-
-    comparison = difflib.ndiff(expected.split(), actual.split())
+    d = Differ()
+    comparison = list(d.compare(expected.split(), actual.split()))
     print(comparison)
-    print(''.join(comparison))
+    print('\n'.join(comparison))
 
 
 def run_cat(command):
@@ -24,7 +24,7 @@ def run_command(command, stdin=None):
 
 def test_wc(inputFile, outputFile, stdInOutputFile):
     result = run_command('python3 prog/wc.py '+inputFile)
-
+    d = Differ()
     assert result.returncode == 0
     with open(outputFile, 'r') as f:
         expected_output = f.read()
