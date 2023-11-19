@@ -28,6 +28,7 @@ def test_wc(inputFile, outputFile, stdInOutputFile,lFlagOutputFile= None,wFlagOu
     with open(outputFile, 'r') as f:
         expected_output = f.read()
         if result.stdout != expected_output:
+            print("without flag",inputFile)
             print("resceived Result", result.stdout)
             print("expected Result", expected_output)
             my_diff(expected_output, result.stdout)
@@ -39,6 +40,7 @@ def test_wc(inputFile, outputFile, stdInOutputFile,lFlagOutputFile= None,wFlagOu
         with open(lFlagOutputFile, 'r') as f:
             expected_output = f.read()
             if result.stdout != expected_output:
+                print("with l flag",inputFile)
                 print("resceived Result", result.stdout)
                 print("expected Result", expected_output)
                 my_diff(expected_output, result.stdout)
@@ -50,6 +52,7 @@ def test_wc(inputFile, outputFile, stdInOutputFile,lFlagOutputFile= None,wFlagOu
         with open(wFlagOutputFile, 'r') as f:
             expected_output = f.read()
             if result.stdout != expected_output:
+                print("with w flag",inputFile)
                 print("resceived Result", result.stdout)
                 print("expected Result", expected_output)
                 my_diff(expected_output, result.stdout)
@@ -61,6 +64,7 @@ def test_wc(inputFile, outputFile, stdInOutputFile,lFlagOutputFile= None,wFlagOu
         with open(cFlagOutputFile, 'r') as f:
             expected_output = f.read()
             if result.stdout != expected_output:
+                print("with c flag",inputFile)
                 print("resceived Result", result.stdout)
                 print("expected Result", expected_output)
                 my_diff(expected_output, result.stdout)
@@ -137,8 +141,9 @@ if __name__ == '__main__':
     failed = {'wc': 0, 'gron': 0, 'bulk_webp_converter': 0}
     total = 0
     for filename in os.listdir('test'):
-        print("Testing", filename)
+        
         if filename.startswith('wc.') and filename.endswith('.in') and not filename.endswith('l.in') and not filename.endswith('w.in') and not filename.endswith('c.in'):
+            print("Testing", filename)
             try:
                 test_wc('test/'+filename, 'test/'+filename.replace('.in',
                         '.out'), 'test/'+filename.replace('.in', '.stdin.out'),'test/'+filename.replace('.in', '.l.out'),'test/'+filename.replace('.in', '.w.out'),'test/'+filename.replace('.in', '.c.out'))
@@ -149,6 +154,7 @@ if __name__ == '__main__':
                 print('failed with error as ', e)
 
         elif filename.startswith('gron.') and filename.endswith('.in'):
+            print("Testing", filename)
             try:
                 test_gron('test/'+filename, 'test/'+filename.replace('.in',
                           '.out'), 'test/'+filename.replace('.in', '.stdin.out'))
@@ -159,6 +165,7 @@ if __name__ == '__main__':
                 print('failed with error as ', e)
 
         elif filename.startswith('bic_test'):
+            print("Testing", filename)
             try:
                 test_bulk_webp_converter('test/'+filename)
                 # input('Press enter to continue')
