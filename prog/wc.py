@@ -65,7 +65,7 @@ def wc(filenameList=None, line_flag=False, word_flag=False, char_flag=False):
             # words += len(line.split('\n'))
             words += len(re.findall(r'\b\w+(?:[-\']\w+)?\b', line))
             chars += len(line)
-        printWc(lines, words, chars, filename)
+        printWc(lines, words, chars, None)
        
 
 
