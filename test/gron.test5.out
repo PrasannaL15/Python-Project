@@ -1,0 +1,5 @@
+json = {}
+json.age = null
+json.email = null
+json.name = null
+

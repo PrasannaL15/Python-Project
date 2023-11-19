@@ -1,0 +1,6 @@
+{
+  "empty_object": {},
+  "nested_empty_object": {
+    "inner_empty_object": {}
+  }
+}

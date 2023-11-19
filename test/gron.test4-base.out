@@ -1,0 +1,23 @@
+base = {}
+base.numbers = []
+base.numbers[0] = 1
+base.numbers[1] = 2
+base.numbers[2] = 3
+base.numbers[3] = 4
+base.numbers[4] = 5
+base.numbers[5] = 6
+base.numbers[6] = 7
+base.numbers[7] = 8
+base.numbers[8] = 9
+base.numbers[9] = 10
+base.numbers[10] = 11
+base.numbers[11] = 12
+base.numbers[12] = 13
+base.numbers[13] = 14
+base.numbers[14] = 15
+base.numbers[15] = 16
+base.numbers[16] = 17
+base.numbers[17] = 18
+base.numbers[18] = 19
+base.numbers[19] = 20
+

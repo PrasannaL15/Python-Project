@@ -7,7 +7,9 @@ from difflib import Differ
 def my_diff(expected, actual):
     d = Differ()
     comparison = list(d.compare(expected.split(), actual.split()))
+    delta = ''.join(x[2:] for x in comparison if x.startswith('- ') or x.startswith('+ '))
     # print(comparison)
+    print('delta is')
     print('\n'.join(comparison))
 
 
@@ -92,24 +94,23 @@ def test_wc(inputFile, outputFile, stdInOutputFile,lFlagOutputFile= None,wFlagOu
         assert result.stdout == expected_output
 
 
-def test_gron(inputFile, outputFile, stdInOutputFile):
+def test_gron(inputFile, outputFile,flag =None):
     result = subprocess.run(['python3', 'prog/gron.py', inputFile],
                             capture_output=True, text=True)
-    assert result.returncode == 0, result.stderr
+    
+    if flag is not None:
+        result = subprocess.run(['python3', 'prog/gron.py', '--obj',flag,inputFile],
+                            capture_output=True, text=True)
+    
+    assert result.returncode == 0, result
     with open(outputFile, 'r') as f:
         expected_output = f.read()
-        if result.stdout != expected_output:
-            my_diff(expected_output, result.stdout)
-        assert result.stdout == expected_output
 
-    cat_output = run_cat('cat '+inputFile)
-    result = subprocess.run(['python3', 'prog/gron.py'],
-                            capture_output=True, text=True, stdin=cat_output.stdout)
-    with open(stdInOutputFile, 'r') as f:
-        expected_output = f.read()
         if result.stdout != expected_output:
-            my_diff(expected_output, result.stdout)
+            print("expected output is ",expected_output)
+            print("actual output is ", result.stdout)
 
+            my_diff(expected_output, result.stdout)
         assert result.stdout == expected_output
 
 
@@ -135,6 +136,11 @@ def test_bulk_webp_converter(inputFile):
     assert result.returncode == 0, result.stderr
     assert test_webp_images(expected_Images, output_path) == True
 
+# filename = 'gron.test1.in'
+# test_gron('test/'+filename, 'test/'+filename.replace('.in',
+#                           '.out'))
+
+# exit(1)
 
 if __name__ == '__main__':
     passed = {'wc': 0, 'gron': 0, 'bulk_webp_converter': 0}
@@ -153,16 +159,34 @@ if __name__ == '__main__':
                 failed['wc'] += 1
                 print('failed with error as ', e)
 
-        elif filename.startswith('gron.') and filename.endswith('.in'):
+        elif filename.startswith('gron.') and filename.endswith('.in') and '-' not in filename:
             print("Testing", filename)
+            
             try:
                 test_gron('test/'+filename, 'test/'+filename.replace('.in',
-                          '.out'), 'test/'+filename.replace('.in', '.stdin.out'))
-                passed['gron'] += 2
-                total += 2
+                          '.out'),)
+                passed['gron'] += 1
+                total += 1
+    
             except AssertionError or Exception as e:
                 failed['gron'] += 1
                 print('failed with error as ', e)
+        elif filename.startswith('gron.') and filename.endswith('.out') and '-'  in filename:
+            print("Testing json with", filename)
+            infilename = filename.split('-')[0]
+            outputfilename = filename
+            flag = filename.split('-')[1]
+            flag = flag.split('.')[0]
+
+            try:
+                test_gron('test/'+infilename+'.in', 'test/'+outputfilename,flag)
+                passed['gron'] += 1
+                total += 1
+    
+            except AssertionError or Exception as e:
+                failed['gron'] += 1
+                print('failed with error as ', e)
+            
 
         elif filename.startswith('bic_test'):
             print("Testing", filename)

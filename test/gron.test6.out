@@ -1,0 +1,5 @@
+json = {}
+json.empty_object = {}
+json.nested_empty_object = {}
+json.nested_empty_object.inner_empty_object = {}
+
