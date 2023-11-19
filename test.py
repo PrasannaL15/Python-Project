@@ -165,6 +165,7 @@ if __name__ == '__main__':
     
     print("Testing multiple files input to wc")
     multiplewcfilelist = ['test/'+filename for filename in os.listdir('test') if filename.startswith('wc.') and filename.endswith('in')]
+    multiplewcfilelist.sort()
     print("Input is ", multiplewcfilelist)
     try:
         test_wc(' '.join(multiplewcfilelist),'test/wc.mutiple.out',None)
