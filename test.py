@@ -22,7 +22,7 @@ def run_command(command, stdin=None):
     return result
 
 
-def test_wc(inputFile, outputFile, stdInOutputFile,lFlagOutputFIle= None,wFlagOutputFile =None, cFlagOutputFile = None):
+def test_wc(inputFile, outputFile, stdInOutputFile,lFlagOutputFile= None,wFlagOutputFile =None, cFlagOutputFile = None):
     result = run_command('python3 prog/wc.py '+inputFile)
     assert result.returncode == 0 , result.stderr
     with open(outputFile, 'r') as f:
