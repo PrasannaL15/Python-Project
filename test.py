@@ -22,7 +22,7 @@ def run_command(command, stdin=None):
     return result
 
 
-def test_wc(inputFile, outputFile, stdInOutputFile):
+def test_wc(inputFile, outputFile, stdInOutputFile,lFlagOutputFIle= None,wFlagOutputFile =None, cFlagOutputFile = None):
     result = run_command('python3 prog/wc.py '+inputFile)
     assert result.returncode == 0 , result.stderr
     with open(outputFile, 'r') as f:
@@ -32,8 +32,50 @@ def test_wc(inputFile, outputFile, stdInOutputFile):
             print("expected Result", expected_output)
             my_diff(expected_output, result.stdout)
         assert result.stdout == expected_output
+    
+    if lFlagOutputFile and  os.path.exists(lFlagOutputFile) :
+        result = run_command('python3 prog/wc.py -l '+inputFile)
+        assert result.returncode == 0 , result.stderr
+        with open(lFlagOutputFile, 'r') as f:
+            expected_output = f.read()
+            if result.stdout != expected_output:
+                print("resceived Result", result.stdout)
+                print("expected Result", expected_output)
+                my_diff(expected_output, result.stdout)
+            assert result.stdout == expected_output
+            
+    if wFlagOutputFile and  os.path.exists(wFlagOutputFile) :
+        result = run_command('python3 prog/wc.py -w '+inputFile)
+        assert result.returncode == 0 , result.stderr
+        with open(wFlagOutputFile, 'r') as f:
+            expected_output = f.read()
+            if result.stdout != expected_output:
+                print("resceived Result", result.stdout)
+                print("expected Result", expected_output)
+                my_diff(expected_output, result.stdout)
+            assert result.stdout == expected_output
+            
+    if cFlagOutputFile and  os.path.exists(cFlagOutputFile) :
+        result = run_command('python3 prog/wc.py -c '+inputFile)
+        assert result.returncode == 0 , result.stderr
+        with open(cFlagOutputFile, 'r') as f:
+            expected_output = f.read()
+            if result.stdout != expected_output:
+                print("resceived Result", result.stdout)
+                print("expected Result", expected_output)
+                my_diff(expected_output, result.stdout)
+            assert result.stdout == expected_output    
+    
+    
+    
+    
     cat_output = run_cat('cat '+inputFile)
     # print(cat_output.stdout, "Cat output is")
+
+
+
+
+
     result = run_command('python3 prog/wc.py', stdin=cat_output.stdout)
 
     with open(stdInOutputFile, 'r') as f:
@@ -99,7 +141,7 @@ if __name__ == '__main__':
         if filename.startswith('wc.') and filename.endswith('.in'):
             try:
                 test_wc('test/'+filename, 'test/'+filename.replace('.in',
-                        '.out'), 'test/'+filename.replace('.in', '.stdin.out'))
+                        '.out'), 'test/'+filename.replace('.in', '.stdin.out'),'test/'+filename.replace('.in', '.l.out'),'test/'+filename.replace('.in', '.w.out'),'test/'+filename.replace('.in', '.c.out'))
                 passed['wc'] += 2
                 total += 2
             except Exception as e:
