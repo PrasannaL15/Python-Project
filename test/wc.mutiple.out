@@ -1,0 +1,8 @@
+       0       0       0 test/wc.empty.in
+       3      26     167 test/wc.normal.in
+       7      31     188 test/wc.test1.in
+      17      31     198 test/wc.test2.in
+      18      68     444 test/wc.test3.in
+      20      88     604 test/wc.test4.in
+      65     244    1601 total
+

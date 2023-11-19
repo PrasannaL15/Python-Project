@@ -82,10 +82,11 @@ def test_wc(inputFile, outputFile, stdInOutputFile,lFlagOutputFile= None,wFlagOu
             assert result.stdout == expected_output    
         passed['wc']+=1
     
+    if not stdInOutputFile:
+        return
     
     cat_output = run_cat('cat '+inputFile)
     
-
 
 
     result = run_command('python3 prog/wc.py', stdin=cat_output.stdout)
@@ -160,6 +161,13 @@ total = 0
 
 
 if __name__ == '__main__':
+    
+    print("Testing multiple files input to wc")
+    multiplewcfilelist = ['test/'+filename for filename in os.listdir('test') if filename.startswith('wc.') and filename.endswith('in')]
+    print("Input is ", multiplewcfilelist)
+    test_wc(' '.join(multiplewcfilelist),'test\wc.mutiple.out',None)
+
+    
     for filename in os.listdir('test'):
         
         if filename.startswith('wc.') and filename.endswith('.in') and not filename.endswith('l.in') and not filename.endswith('w.in') and not filename.endswith('c.in'):
@@ -206,8 +214,9 @@ if __name__ == '__main__':
                 failed['bulk_image_converter'] += 1
                 print('failed with error as ', e)
 
+    
+    
     # test_wc('test/wc.test1.in','test/wc.test1.out','test/wc.test1.stdin.out')
-
     # Print nicely formatted total passed and
     total = sum([value for key,value in passed.items()]) + sum([value for key,value in failed.items()])  
     print("Total Tests Performed:", total)
