@@ -24,7 +24,7 @@ def run_command(command, stdin=None):
 
 def test_wc(inputFile, outputFile, stdInOutputFile):
     result = run_command('python3 prog/wc.py '+inputFile)
-    assert result.returncode == 0
+    assert result.returncode == 0 , result.stderr
     with open(outputFile, 'r') as f:
         expected_output = f.read()
         if result.stdout != expected_output:
@@ -49,7 +49,7 @@ def test_wc(inputFile, outputFile, stdInOutputFile):
 def test_gron(inputFile, outputFile, stdInOutputFile):
     result = subprocess.run(['python3', 'prog/gron.py', inputFile],
                             capture_output=True, text=True)
-    assert result.returncode == 0
+    assert result.returncode == 0, result.stderr
     with open(outputFile, 'r') as f:
         expected_output = f.read()
         if result.stdout != expected_output:
@@ -72,7 +72,6 @@ def test_bulk_webp_converter(inputFile):
 
         for image in images:
             path = os.path.join(output, image).replace('\\', '/')
-
             assert os.path.exists(path) == True
             assert path.endswith('.webp')
         return True
@@ -87,7 +86,7 @@ def test_bulk_webp_converter(inputFile):
     # print(expected_Images)
     output_path = os.path.join(inputFile, 'Output').replace('\\', '/')
 
-    assert result.returncode == 0
+    assert result.returncode == 0, result.stderr
     assert test_webp_images(expected_Images, output_path) == True
 
 
