@@ -166,8 +166,11 @@ if __name__ == '__main__':
     print("Testing multiple files input to wc")
     multiplewcfilelist = ['test/'+filename for filename in os.listdir('test') if filename.startswith('wc.') and filename.endswith('in')]
     print("Input is ", multiplewcfilelist)
-    test_wc(' '.join(multiplewcfilelist),'test/wc.mutiple.out',None)
-
+    try:
+        test_wc(' '.join(multiplewcfilelist),'test/wc.mutiple.out',None)
+    except AssertionError or Exception as e:
+        failed['wc']+=1
+        print("failed with error as " ,e )
     
     for filename in os.listdir('test'):
         
