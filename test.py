@@ -214,11 +214,12 @@ if __name__ == '__main__':
     print("Total Passed:")
     print("wc:", passed['wc'])
     print("gron:", passed['gron'])
-    print("bulk_webp_converter:", passed['bulk_webp_converter'])
+    print("bulk_image_converter:", passed['bulk_image_converter'])
+    
     print("Total Failed:")
     print("wc:", failed['wc'])
     print("gron:", failed['gron'])
-    print("bulk_webp_converter:", failed['bulk_webp_converter'])
+    print("bulk_image_converter:", failed['bulk_image_converter'])
 
-    if failed['wc'] != 0 or failed['gron'] != 0 or failed['bulk_webp_converter'] != 0:
+    if failed['wc'] != 0 or failed['gron'] != 0 or failed['bulk_image_converter'] != 0:
         exit(1)
