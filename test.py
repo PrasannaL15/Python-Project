@@ -209,7 +209,7 @@ if __name__ == '__main__':
     # test_wc('test/wc.test1.in','test/wc.test1.out','test/wc.test1.stdin.out')
 
     # Print nicely formatted total passed and
-    total = sum([value for key,value in passed.items()]) + sum([value for key,value in faileds.items()])  
+    total = sum([value for key,value in passed.items()]) + sum([value for key,value in failed.items()])  
     print("Total Tests Performed:", total)
     print("Total Passed:")
     print("wc:", passed['wc'])
