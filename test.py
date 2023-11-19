@@ -89,7 +89,7 @@ def test_wc(inputFile, outputFile, stdInOutputFile,lFlagOutputFile= None,wFlagOu
             print("expected Result", expected_output)
             my_diff(expected_output, result.stdout)
 
-        assert result.stdout == 1, "hi"
+        assert result.stdout == expected_output
 
 
 def test_gron(inputFile, outputFile, stdInOutputFile):
