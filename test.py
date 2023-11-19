@@ -59,7 +59,7 @@ def test_wc(inputFile, outputFile, stdInOutputFile,lFlagOutputFile= None,wFlagOu
             assert result.stdout == expected_output
             
     if cFlagOutputFile and  os.path.exists(cFlagOutputFile) :
-        result = run_command('python3 prog/wc.p -c '+inputFile)
+        result = run_command('python3 prog/wc.py -c '+inputFile)
         assert result.returncode == 0 , result.stderr
         with open(cFlagOutputFile, 'r') as f:
             expected_output = f.read()
@@ -89,7 +89,7 @@ def test_wc(inputFile, outputFile, stdInOutputFile,lFlagOutputFile= None,wFlagOu
             print("expected Result", expected_output)
             my_diff(expected_output, result.stdout)
 
-        assert result.stdout == expected_output
+        assert result.stdout == 1, "hi"
 
 
 def test_gron(inputFile, outputFile, stdInOutputFile):
@@ -149,7 +149,7 @@ if __name__ == '__main__':
                         '.out'), 'test/'+filename.replace('.in', '.stdin.out'),'test/'+filename.replace('.in', '.l.out'),'test/'+filename.replace('.in', '.w.out'),'test/'+filename.replace('.in', '.c.out'))
                 passed['wc'] += 2
                 total += 2
-            except Exception as e:
+            except AssertionError or Exception as e:
                 failed['wc'] += 1
                 print('failed with error as ', e)
 
