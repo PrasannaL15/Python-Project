@@ -114,27 +114,27 @@ def test_gron(inputFile, outputFile,flag =None):
         assert result.stdout == expected_output
 
 
-def test_bulk_webp_converter(inputFile):
-    def test_webp_images(images, output):
+def test_bulk_webp_converter(inputFile,format):
+    def test_webp_images(images, output,format):
 
         for image in images:
             path = os.path.join(output, image).replace('\\', '/')
-            assert os.path.exists(path) == True
-            assert path.endswith('.webp')
+            assert os.path.exists(path) == True, path
+            assert path.endswith(format) , path+format
         return True
 
     if os.path.exists(inputFile+'/Output'):
         shutil.rmtree(inputFile+'/Output')
 
     result = subprocess.run(
-        ['python3', 'prog/bic.py', '-f', 'webp', inputFile], capture_output=True, text=True)
+        ['python3', 'prog/bic.py', '-f', format, inputFile], capture_output=True, text=True)
     expected_Images = [filename for filename in os.listdir(
         inputFile+'/expected_output')]
     # print(expected_Images)
     output_path = os.path.join(inputFile, 'Output').replace('\\', '/')
 
     assert result.returncode == 0, result.stderr
-    assert test_webp_images(expected_Images, output_path) == True
+    assert test_webp_images(expected_Images, output_path, format) == True, 'Conversion is not correct'
 
 # filename = 'gron.test1.in'
 # test_gron('test/'+filename, 'test/'+filename.replace('.in',
@@ -190,8 +190,9 @@ if __name__ == '__main__':
 
         elif filename.startswith('bic_test'):
             print("Testing", filename)
+            format = filename.split('-')[1]
             try:
-                test_bulk_webp_converter('test/'+filename)
+                test_bulk_webp_converter('test/'+filename,format)
                 # input('Press enter to continue')
                 passed['bulk_webp_converter'] += 1
                 total += 1

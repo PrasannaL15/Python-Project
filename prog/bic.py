@@ -29,7 +29,7 @@ def convert_images(folder_path, output_format, rename=None, generate_sizes=None)
             folder_path, f'Output{count}').replace("\\", "/")
     os.makedirs(output_folder, exist_ok=True)
 
-    format_map = {'webp': 'webp', 'jpg': 'jpeg', 'png': 'png'}
+    format_map = {'webp': 'webp', 'jpeg': 'jpeg', 'png': 'png'}
 
     count = 1
     for filename in sorted(os.listdir(folder_path)):
@@ -37,7 +37,11 @@ def convert_images(folder_path, output_format, rename=None, generate_sizes=None)
         if filename.endswith('.jpg') or filename.endswith('.jpeg') or filename.endswith('.png') or filename.endswith('.webp'):
             img_path = os.path.join(folder_path, filename).replace("\\", "/")
             img = Image.open(img_path)
-            
+            if(format_map[output_format] == 'jpeg'):
+                print("hi")
+                img = img.convert('RGB')
+                print(img.mode)
+
             output_path = os.path.join(
                 output_folder, filename.split('.')[0]) + '.' + format_map[output_format]
             output_path = output_path.replace("\\", "/")
@@ -110,7 +114,7 @@ if __name__ == '__main__':
     parser.add_argument('folder_path', type=str,
                         help='Path to the folder containing the images')
     parser.add_argument('-f', '--format', type=str, choices=[
-                        'webp', 'jpg', 'png'], help='The format to which the images should be converted')
+                        'webp', 'jpeg', 'png'], help='The format to which the images should be converted')
     parser.add_argument('-r', '--rename', type=str, nargs='?',
                         help='If specified, the converted images will be renamed to the specified name')
     parser.add_argument('-s', '--sizes', type=comma_seperated, nargs=1,
