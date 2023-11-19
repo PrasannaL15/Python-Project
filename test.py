@@ -59,7 +59,7 @@ def test_wc(inputFile, outputFile, stdInOutputFile,lFlagOutputFile= None,wFlagOu
             assert result.stdout == expected_output
             
     if cFlagOutputFile and  os.path.exists(cFlagOutputFile) :
-        result = run_command('python3 prog/wc.py -c '+inputFile)
+        result = run_command('python3 prog/wc.p -c '+inputFile)
         assert result.returncode == 0 , result.stderr
         with open(cFlagOutputFile, 'r') as f:
             expected_output = f.read()
