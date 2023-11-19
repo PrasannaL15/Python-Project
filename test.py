@@ -138,7 +138,7 @@ if __name__ == '__main__':
     total = 0
     for filename in os.listdir('test'):
         print("Testing", filename)
-        if filename.startswith('wc.') and filename.endswith('.in'):
+        if filename.startswith('wc.') and filename.endswith('.in') and not filename.endswith('l.in') not filename.endswith('w.in') not filename.endswith('c.in'):
             try:
                 test_wc('test/'+filename, 'test/'+filename.replace('.in',
                         '.out'), 'test/'+filename.replace('.in', '.stdin.out'),'test/'+filename.replace('.in', '.l.out'),'test/'+filename.replace('.in', '.w.out'),'test/'+filename.replace('.in', '.c.out'))
