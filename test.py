@@ -14,9 +14,13 @@ def my_diff(expected, actual):
 
 
 def run_cat(command):
-    cat = subprocess.Popen(command.split(' '), stdout=subprocess.PIPE)
-    return cat
+    try:
+        cat = subprocess.Popen(command.split(' '), stdout=subprocess.PIPE)
+        return cat
 
+    except:
+        raise Exception('e')
+    
 
 def run_command(command, stdin=None):
     result = subprocess.run(command.split(
@@ -25,6 +29,8 @@ def run_command(command, stdin=None):
 
 
 def test_wc(inputFile, outputFile, stdInOutputFile,lFlagOutputFile= None,wFlagOutputFile =None, cFlagOutputFile = None):
+    global passed
+
     result = run_command('python3 prog/wc.py '+inputFile)
     assert result.returncode == 0 , result.stderr
     with open(outputFile, 'r') as f:
@@ -35,7 +41,8 @@ def test_wc(inputFile, outputFile, stdInOutputFile,lFlagOutputFile= None,wFlagOu
             print("expected Result", expected_output)
             my_diff(expected_output, result.stdout)
         assert result.stdout == expected_output
-    
+    passed['wc']+=1
+
     if lFlagOutputFile and  os.path.exists(lFlagOutputFile) :
         result = run_command('python3 prog/wc.py -l '+inputFile)
         assert result.returncode == 0 , result.stderr
@@ -47,7 +54,8 @@ def test_wc(inputFile, outputFile, stdInOutputFile,lFlagOutputFile= None,wFlagOu
                 print("expected Result", expected_output)
                 my_diff(expected_output, result.stdout)
             assert result.stdout == expected_output
-            
+        passed['wc']+=1
+        
     if wFlagOutputFile and  os.path.exists(wFlagOutputFile) :
         result = run_command('python3 prog/wc.py -w '+inputFile)
         assert result.returncode == 0 , result.stderr
@@ -59,6 +67,7 @@ def test_wc(inputFile, outputFile, stdInOutputFile,lFlagOutputFile= None,wFlagOu
                 print("expected Result", expected_output)
                 my_diff(expected_output, result.stdout)
             assert result.stdout == expected_output
+        passed['wc']+=1
             
     if cFlagOutputFile and  os.path.exists(cFlagOutputFile) :
         result = run_command('python3 prog/wc.py -c '+inputFile)
@@ -71,14 +80,11 @@ def test_wc(inputFile, outputFile, stdInOutputFile,lFlagOutputFile= None,wFlagOu
                 print("expected Result", expected_output)
                 my_diff(expected_output, result.stdout)
             assert result.stdout == expected_output    
-    
-    
+        passed['wc']+=1
     
     
     cat_output = run_cat('cat '+inputFile)
-    # print(cat_output.stdout, "Cat output is")
-
-
+    
 
 
 
@@ -92,9 +98,12 @@ def test_wc(inputFile, outputFile, stdInOutputFile,lFlagOutputFile= None,wFlagOu
             my_diff(expected_output, result.stdout)
 
         assert result.stdout == expected_output
-
+    passed['wc']+=1
+    
 
 def test_gron(inputFile, outputFile,flag =None):
+    global passed
+    
     result = subprocess.run(['python3', 'prog/gron.py', inputFile],
                             capture_output=True, text=True)
     
@@ -112,9 +121,11 @@ def test_gron(inputFile, outputFile,flag =None):
 
             my_diff(expected_output, result.stdout)
         assert result.stdout == expected_output
-
+    passed['gron']+=1
 
 def test_bulk_webp_converter(inputFile,format):
+    global passed 
+
     def test_webp_images(images, output,format):
 
         for image in images:
@@ -135,17 +146,20 @@ def test_bulk_webp_converter(inputFile,format):
 
     assert result.returncode == 0, result.stderr
     assert test_webp_images(expected_Images, output_path, format) == True, 'Conversion is not correct'
-
+    passed['bulk_image_converter']+=1
 # filename = 'gron.test1.in'
 # test_gron('test/'+filename, 'test/'+filename.replace('.in',
 #                           '.out'))
 
 # exit(1)
 
+passed = {'wc': 0, 'gron': 0, 'bulk_image_converter': 0}
+failed = {'wc': 0, 'gron': 0, 'bulk_image_converter': 0}
+total = 0
+    
+
+
 if __name__ == '__main__':
-    passed = {'wc': 0, 'gron': 0, 'bulk_webp_converter': 0}
-    failed = {'wc': 0, 'gron': 0, 'bulk_webp_converter': 0}
-    total = 0
     for filename in os.listdir('test'):
         
         if filename.startswith('wc.') and filename.endswith('.in') and not filename.endswith('l.in') and not filename.endswith('w.in') and not filename.endswith('c.in'):
@@ -153,8 +167,6 @@ if __name__ == '__main__':
             try:
                 test_wc('test/'+filename, 'test/'+filename.replace('.in',
                         '.out'), 'test/'+filename.replace('.in', '.stdin.out'),'test/'+filename.replace('.in', '.l.out'),'test/'+filename.replace('.in', '.w.out'),'test/'+filename.replace('.in', '.c.out'))
-                passed['wc'] += 2
-                total += 2
             except AssertionError or Exception as e:
                 failed['wc'] += 1
                 print('failed with error as ', e)
@@ -165,9 +177,7 @@ if __name__ == '__main__':
             try:
                 test_gron('test/'+filename, 'test/'+filename.replace('.in',
                           '.out'),)
-                passed['gron'] += 1
-                total += 1
-    
+            
             except AssertionError or Exception as e:
                 failed['gron'] += 1
                 print('failed with error as ', e)
@@ -180,9 +190,7 @@ if __name__ == '__main__':
 
             try:
                 test_gron('test/'+infilename+'.in', 'test/'+outputfilename,flag)
-                passed['gron'] += 1
-                total += 1
-    
+            
             except AssertionError or Exception as e:
                 failed['gron'] += 1
                 print('failed with error as ', e)
@@ -194,15 +202,14 @@ if __name__ == '__main__':
             try:
                 test_bulk_webp_converter('test/'+filename,format)
                 # input('Press enter to continue')
-                passed['bulk_webp_converter'] += 1
-                total += 1
             except AssertionError or Exception as e:
-                failed['bulk_webp_converter'] += 1
+                failed['bulk_image_converter'] += 1
                 print('failed with error as ', e)
 
     # test_wc('test/wc.test1.in','test/wc.test1.out','test/wc.test1.stdin.out')
 
     # Print nicely formatted total passed and
+    total = sum([value for key,value in passed.items()]) + sum([value for key,value in faileds.items()])  
     print("Total Tests Performed:", total)
     print("Total Passed:")
     print("wc:", passed['wc'])
