@@ -87,6 +87,7 @@ To run the tests:
     EXAMPLES:
 
     1. Only l flag
+
     ```
         python .\prog\wc.py -l test\wc.normal.in 
     ```                                                                       
@@ -98,6 +99,7 @@ To run the tests:
     ```
 
     2. Only w falg
+   
     ```
         python .\prog\wc.py -w test\wc.normal.in 
     ```
@@ -109,6 +111,7 @@ To run the tests:
     ```
 
     3. with l and w flag
+    
     ```
         python .\prog\wc.py -lw test\wc.normal.in 
     ```
@@ -120,6 +123,7 @@ To run the tests:
     ```
 
     4. Only c flag
+    
     ```
         python .\prog\wc.py -c test\wc.normal.in 
     ```
@@ -131,6 +135,7 @@ To run the tests:
     ```
 
     5. with lwc flag 
+    
     ```
         python .\prog\wc.py -lwc test\wc.normal.in 
     ```
@@ -142,6 +147,7 @@ To run the tests:
     ```
 
     6. with lw flag and multiple files
+    
     ```
         python .\prog\wc.py -lw test\wc.normal.in test\wc.test1.in 
     ```
