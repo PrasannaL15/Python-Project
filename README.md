@@ -84,45 +84,50 @@ To run the tests:
         python .\prog\wc.py -l test\wc.normal.in 
     ```                                                                       
     Output:
-
+    ```
        3 test\wc.normal.in
-    
+    ```
+
     ```
         python .\prog\wc.py -w test\wc.normal.in 
     ```
     Output:
-
+    ```
       26 test\wc.normal.in
-    
+    ```
     ```
         python .\prog\wc.py -lw test\wc.normal.in 
     ```
     Output:
-
+    ```
        3      26 test\wc.normal.in
-    
+    ```
+
     ```
         python .\prog\wc.py -c test\wc.normal.in 
     ```
     Output:
-
+    ```
      167 test\wc.normal.in
-    
+    ```
+
     ```
         python .\prog\wc.py -lwc test\wc.normal.in 
     ```
     Output:
-       
+    ```   
        3     26     167 test\wc.normal.in
-        
+    ```
+
     ```
         python .\prog\wc.py -lw test\wc.normal.in test\wc.test1.in 
     ```
     Output:
+    ```
                3      26 test\wc.normal.in
                7      31 test\wc.test1.in
               10      57 total
-
+    ```
 
 
 
@@ -136,26 +141,27 @@ To run the tests:
     ```
 
     Output: 
-    
-    obj = {}
-    obj.a = {}
-    obj.a.232 = "Dddd"
-    obj.a.d = 2323
-    obj.menu = {}
-    obj.menu.id = "file"
-    obj.menu.popup = {}
-    obj.menu.popup.menuitem = []
-    obj.menu.popup.menuitem[0] = {}
-    obj.menu.popup.menuitem[0].onclick = "CreateNewDoc()"
-    obj.menu.popup.menuitem[0].value = "New"
-    obj.menu.popup.menuitem[1] = {}
-    obj.menu.popup.menuitem[1].onclick = "OpenDoc()"
-    obj.menu.popup.menuitem[1].value = "Open"
-    obj.menu.popup.menuitem[2] = {}
-    obj.menu.popup.menuitem[2].onclick = "CloseDoc()"
-    obj.menu.popup.menuitem[2].value = "Close"
-    obj.menu.value = "File"
+    ```
 
+        obj = {}
+        obj.a = {}
+        obj.a.232 = "Dddd"
+        obj.a.d = 2323
+        obj.menu = {}
+        obj.menu.id = "file"
+        obj.menu.popup = {}
+        obj.menu.popup.menuitem = []
+        obj.menu.popup.menuitem[0] = {}
+        obj.menu.popup.menuitem[0].onclick = "CreateNewDoc()"
+        obj.menu.popup.menuitem[0].value = "New"
+        obj.menu.popup.menuitem[1] = {}
+        obj.menu.popup.menuitem[1].onclick = "OpenDoc()"
+        obj.menu.popup.menuitem[1].value = "Open"
+        obj.menu.popup.menuitem[2] = {}
+        obj.menu.popup.menuitem[2].onclick = "CloseDoc()"
+        obj.menu.popup.menuitem[2].value = "Close"
+        obj.menu.value = "File"
+    ```
 
 
 
