@@ -90,8 +90,9 @@ To run the tests:
     ```
         python .\prog\wc.py -l test\wc.normal.in 
     ```                                                                       
-    Output:
-    ```
+    
+    ```Output :
+
        3 test\wc.normal.in
     ```
 
@@ -99,8 +100,9 @@ To run the tests:
     ```
         python .\prog\wc.py -w test\wc.normal.in 
     ```
-    Output:
-    ```
+    
+    ```Output :
+
       26 test\wc.normal.in
     ```
 
@@ -108,8 +110,9 @@ To run the tests:
     ```
         python .\prog\wc.py -lw test\wc.normal.in 
     ```
-    Output:
-    ```
+    
+    ```Output :
+
        3      26 test\wc.normal.in
     ```
 
@@ -117,8 +120,9 @@ To run the tests:
     ```
         python .\prog\wc.py -c test\wc.normal.in 
     ```
-    Output:
-    ```
+    
+    ```Output :
+
      167 test\wc.normal.in
     ```
 
@@ -126,8 +130,9 @@ To run the tests:
     ```
         python .\prog\wc.py -lwc test\wc.normal.in 
     ```
-    Output:
-    ```   
+    
+    ```Output :
+   
        3     26     167 test\wc.normal.in
     ```
 
@@ -135,8 +140,9 @@ To run the tests:
     ```
         python .\prog\wc.py -lw test\wc.normal.in test\wc.test1.in 
     ```
-    Output:
-    ```
+    
+    ```Output :
+
                3      26 test\wc.normal.in
                7      31 test\wc.test1.in
               10      57 total
