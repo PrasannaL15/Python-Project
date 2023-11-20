@@ -168,7 +168,7 @@ To run the tests:
     You can specify the base object using --obj flag. This will change default json to the obj specified
 
     ```
-    python .\prog\wc.py -lw test\wc.normal.in test\wc.test1.in 
+    python3 prog/gron.py --obj obj test/gron.test1.in
 
     ```
 
