@@ -51,11 +51,13 @@ To run the tests:
    ```bash
    python test.py
 
-
-
 ## There are no significant known bugs in this project
 
+
+
 ### The major issue faced was comparing the expected ouput and the output received from the subprocess. I have utilized difflib library to compare and check whether they are same or not. Another issue faced was of difference between ubuntu and windows file structure and problems arising from that.
+
+
 
 
 ### I have utilized following three extensions
@@ -69,7 +71,6 @@ To run the tests:
     
     ```
         python prog/wc.py test/wc.test1.in test/wc.test1.in
-
     ```
     Output: 
 
@@ -89,7 +90,7 @@ To run the tests:
     1. Only l flag
 
         ```
-            python .\prog\wc.py -l test\wc.normal.in 
+        python .\prog\wc.py -l test\wc.normal.in 
         ```                                                                       
     
         ``` 
@@ -101,7 +102,7 @@ To run the tests:
     2. Only w falg
    
         ```
-            python .\prog\wc.py -w test\wc.normal.in 
+        python .\prog\wc.py -w test\wc.normal.in 
         ```
         
         ``` 
@@ -113,7 +114,7 @@ To run the tests:
     3. with l and w flag
         
         ```
-            python .\prog\wc.py -lw test\wc.normal.in 
+        python .\prog\wc.py -lw test\wc.normal.in 
         ```
         
         ``` 
@@ -125,7 +126,7 @@ To run the tests:
     4. Only c flag
     
         ```
-            python .\prog\wc.py -c test\wc.normal.in 
+        python .\prog\wc.py -c test\wc.normal.in 
         ```
         
         ``` 
@@ -137,7 +138,7 @@ To run the tests:
     5. with lwc flag 
     
         ```
-            python .\prog\wc.py -lwc test\wc.normal.in 
+        python .\prog\wc.py -lwc test\wc.normal.in 
         ```
         
         ``` 
@@ -149,7 +150,7 @@ To run the tests:
     6. with lw flag and multiple files
         
         ```
-            python .\prog\wc.py -lw test\wc.normal.in test\wc.test1.in 
+        python .\prog\wc.py -lw test\wc.normal.in test\wc.test1.in 
         ```
         
         ``` 
@@ -167,7 +168,7 @@ To run the tests:
     You can specify the base object using --obj flag. This will change default json to the obj specified
 
     ```
-        python .\prog\wc.py -lw test\wc.normal.in test\wc.test1.in 
+    python .\prog\wc.py -lw test\wc.normal.in test\wc.test1.in 
 
     ```
 
