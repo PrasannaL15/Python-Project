@@ -64,8 +64,11 @@ To run the tests:
 
     You can provide multiple files to prog/wc.py and it will list down the output of each file and total.
 
+    EXAMPLES :
+
+    
     ```
-            python prog/wc.py test/wc.test1.in test/wc.test1.in
+        python prog/wc.py test/wc.test1.in test/wc.test1.in
 
     ```
     Output: 
@@ -80,6 +83,10 @@ To run the tests:
     You can provide flags (l, w, c) to get length, words or characters of the input file.
     You can also combine this with the multiple files 
 
+
+    EXAMPLES:
+
+    1.
     ```
         python .\prog\wc.py -l test\wc.normal.in 
     ```                                                                       
@@ -88,6 +95,7 @@ To run the tests:
        3 test\wc.normal.in
     ```
 
+    2.
     ```
         python .\prog\wc.py -w test\wc.normal.in 
     ```
@@ -95,6 +103,8 @@ To run the tests:
     ```
       26 test\wc.normal.in
     ```
+
+    3.
     ```
         python .\prog\wc.py -lw test\wc.normal.in 
     ```
@@ -103,6 +113,7 @@ To run the tests:
        3      26 test\wc.normal.in
     ```
 
+    4.
     ```
         python .\prog\wc.py -c test\wc.normal.in 
     ```
@@ -111,6 +122,7 @@ To run the tests:
      167 test\wc.normal.in
     ```
 
+    5.
     ```
         python .\prog\wc.py -lwc test\wc.normal.in 
     ```
@@ -119,6 +131,7 @@ To run the tests:
        3     26     167 test\wc.normal.in
     ```
 
+    6.
     ```
         python .\prog\wc.py -lw test\wc.normal.in test\wc.test1.in 
     ```
