@@ -66,11 +66,11 @@ To run the tests:
 
     You can provide multiple files to prog/wc.py and it will list down the output of each file and total.
 
-    EXAMPLES :
+    EXAMPLE :
 
     
     ```
-        python prog/wc.py test/wc.test1.in test/wc.test1.in
+    python prog/wc.py test/wc.test1.in test/wc.test1.in
     ```
     Output: 
 
