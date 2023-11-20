@@ -35,6 +35,7 @@ The `bic.py` script handles bulk image conversions. Tests cover:
 
 - Conversion of different image formats.
 - specify the format required using -f format, the format can be webp, png, jpeg
+- It is tested using the folders starting with bic, each folder has expected_output with which the output of the script is compared.
 
 ## Running Tests
 
