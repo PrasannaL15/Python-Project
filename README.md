@@ -88,9 +88,9 @@ To run the tests:
 
     1. Only l flag
 
-    ```
-        python .\prog\wc.py -l test\wc.normal.in 
-    ```                                                                       
+        ```
+            python .\prog\wc.py -l test\wc.normal.in 
+        ```                                                                       
     
     ``` 
     Output :
